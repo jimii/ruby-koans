@@ -14,11 +14,13 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
+  raise TriangleError, "All sides must be positive number" if [a,b,c].map { |x| x <= 0 }.all?
+  raise TriangleError, "Impossible triangle" if ( a + b + c - ( 2 *  [a,b,c].max ) <= 0  )
   case [a,b,c].uniq.size
     when 1 then :equilateral
     when 2 then :isosceles
     when 3 then :scalene
-  end    
+  end
 end
 
 # Error class used in part 2.  No need to change this code.
