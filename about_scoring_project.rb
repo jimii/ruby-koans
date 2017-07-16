@@ -30,7 +30,24 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
+  score = 0
+
+  rules = {
+    rule1: dice.count(1) / 3,
+    rule2: (dice - [1]).uniq.map { |x| x * ( dice.count(x) / 3 ) }.compact.inject(:+).to_i,
+    rule3: dice.count(1) % 3,
+    rule4: dice.count(5) % 3
+  }
+
+  awards = {
+    rule1: 1000,
+    rule2: 100,
+    rule3: 100,
+    rule4: 50
+  }
+
+  rules.map { |k,v| score += v * awards[k] }
+  score
 end
 
 class AboutScoringProject < Neo::Koan
